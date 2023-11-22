@@ -1,0 +1,30 @@
+<div class="header">
+  <h1>emissionInsight</h1>
+</div>
+<div class="container">
+  <div class="timestamp" *ngIf="sensorData.getSensorData && sensorData.getSensorData.length > 0">
+    {{ sensorData.getSensorData[0].timestamp }}
+  </div>
+  <hr>
+  <div class="upper-data" *ngIf="sensorData.getSensorData && sensorData.getSensorData.length > 0">
+    <div class="sensor-data" *ngFor="let sensor of sensorData.getSensorData">
+      <div class="carbon-data" *ngIf="sensor.carbon_concentration">
+        CO2: {{ sensor.carbon_concentration | number: '1.0-2' }}
+       
+      </div>
+      <div class="carbon-plot" [chart]="carbonChart"></div>
+    </div>
+  </div>
+  <hr>
+  <div class="lower-data">
+    <!-- Your chart components here (e.g., ngx-charts) -->
+    <div class="meth-data" *ngFor="let sensor of sensorData.getSensorData">
+      <div class="methane-data" *ngIf="sensor.methane_concentration">
+        Methane: {{ sensor.methane_concentration | number: '1.0-2' }}
+       
+      </div>
+      <div class="methane-plot" [chart]="methaneChart"></div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
