@@ -8,12 +8,12 @@
     --chart-color: #337ab7; /* Chart color for the line chart */
     --silver: #909090;
     --light-green: #64cf72;
-    --blue: #6096B4;
+    --blue: #040D12;
     --light-blue: #08dce3;
     --pure-white: #5e0f0f;
     --pure-blue: rgb(247, 243, 10), 164, 164;
     --white: #ffffff;
-    --green:#93BFCF; 
+    --green:#183D3D; 
  }
   
 
@@ -129,7 +129,7 @@ hr {
    font-size: 1.5em;
    text-align: center;
    font-weight: 350;
-   width: 350px;
+   width: 200px;
    height: 5vh;
    background-color: var(--blue);
    border-radius: 10px;
@@ -138,8 +138,8 @@ hr {
    align-items: flex-end;
    justify-content: center;
    margin-bottom: 10px;
-   margin-left: 30px;
-   /* margin-right: 40px; */
+   margin-left: 100px;
+   margin-right: 40px;
    margin-top: 20px;
    position: absolute;
    bottom: 0;
@@ -160,7 +160,7 @@ hr {
 
 
 .carbon-plot {
-   border-radius: 10px;
+   border-radius: 0%;
    width: 350px;
    height: 30vh;
    display: flex;
@@ -168,7 +168,7 @@ hr {
    justify-content: center;
    margin-bottom: 45px;
    margin-right: 40px;
-   margin-left: 40px;
+   margin-left: 40px; 
    box-shadow:   1px 1px 5px 1px var(--text-color);
 }
 
@@ -203,7 +203,7 @@ hr {
    font-size: 1.5em;
    text-align: center;
    font-weight: 350;
-   width: 350px;
+   width: 200px;
    height: 5vh;
    background-color: var(--blue);
    border-radius: 10px;
@@ -212,7 +212,7 @@ hr {
    align-items: flex-end;
    justify-content: center;
    margin-bottom: 30px;
-   margin-left: 30px;
+   margin-left: 100px;
    /* margin-right: 40px; */
    margin-top: 20px;
    position: absolute;
@@ -225,7 +225,7 @@ hr {
 }
 
 .methane-plot {
-   border-radius: 10px;
+   border-radius: 0%;
    width: 350px;
    height: 30vh;
    display: flex;

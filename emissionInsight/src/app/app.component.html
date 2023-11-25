@@ -17,7 +17,7 @@
   </div>
   <hr>
   <div class="lower-data">
-    <!-- Your chart components here (e.g., ngx-charts) -->
+  
     <div class="meth-data" *ngFor="let sensor of sensorData.getSensorData">
       <div class="methane-data" *ngIf="sensor.methane_concentration">
         Methane: {{ sensor.methane_concentration | number: '1.0-2' }}
@@ -27,4 +27,7 @@
     </div>
   </div>
 </div>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> 
+
+
+
