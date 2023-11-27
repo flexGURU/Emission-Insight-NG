@@ -7,7 +7,7 @@ import { SensorDataService } from './aws-api.service';
 import {  HIGHCHARTS_MODULES } from 'angular-highcharts';
 import * as HighchartsMore from 'highcharts/highcharts-more.src';
 import * as HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
-
+import { HighchartsChartModule } from "highcharts-angular";
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +15,8 @@ import * as HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChartModule
+    ChartModule,
+    HighchartsChartModule 
   ],
   providers: [SensorDataService, { provide: HIGHCHARTS_MODULES, useFactory: () => [HighchartsMore, HighchartsSolidGauge] }],
   bootstrap:  [AppComponent]

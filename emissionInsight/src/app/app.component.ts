@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { SensorDataService } from './aws-api.service';
-import { interval, Subscription } from 'rxjs';
 import * as Highcharts from 'highcharts';
 import HC_more from 'highcharts/highcharts-more';
 HC_more(Highcharts);
@@ -11,50 +10,59 @@ HC_more(Highcharts);
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
   title = 'emissionInsight';
-  sensorData: any = {}; // Initialize an empty object to store sensor data
-  private updateSubscription!: Subscription;
-  carbonChart = new Chart(); // Assuming you are using the angular-highcharts library
-  methaneChart = new Chart(); // Assuming you are using the angular-highcharts library
-  constructor(private sensorDataService: SensorDataService) {}
+  sensorData: any = {};
+  private carbonValue: number = 0;
+  private methaneValue: number = 0;
+  carbonChart!: Chart;
+  methaneChart!: Chart;
 
+  constructor(
+    private sensorDataService: SensorDataService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.setupGaugeCharts();
     this.updateData();
-    this.updateSubscription = interval(600000000).subscribe(
-      (val) => { this.updateData() }
-    );
+    setInterval(() => this.reload(), 60000);
+    this.cdr.detectChanges();
   }
 
-  ngOnDestroy() {
-    this.updateSubscription.unsubscribe();
+  private reload() {
+    window.location.reload();
   }
 
   async updateData() {
     try {
       this.sensorData = await this.sensorDataService.list();
-      // Update your charts here with the new data
-      this.updateCarbonChart();
-      this.updateMethaneChart();
+      const latestSensorData = this.sensorData.getSensorData[0];
+      this.carbonValue = latestSensorData.carbon_concentration || 0;
+      this.methaneValue = latestSensorData.methane_concentration || 0;
+
+      console.log('Carbon Value:', this.carbonValue);
+      console.log('Methane Value:', this.methaneValue);
+
+      setTimeout(() => {
+        this.updateMethaneChart();
+        this.updateCarbonChart();
+      }, -1000);
     } catch (error) {
       console.error(error);
     }
   }
-
   setupGaugeCharts() {
     // Create a gauge chart for carbon
     this.carbonChart = new Chart({
       chart: {
-        type: 'solidgauge',
-        backgroundColor: '#040D12'
-    
-        
+        type: 'solidgauge', 
+        backgroundColor: '#040D12',
       },
       credits: {
         enabled: false
     },
+      
       title: {
         text: 'Carbon Concentration',
         style: {
@@ -93,7 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       series: [{  
         name: 'Carbon',
-        data: [0.7],
+       data: [0],
         dataLabels: {
 
           backgroundColor: {
@@ -113,7 +121,7 @@ export class AppComponent implements OnInit, OnDestroy {
           valueSuffix: '% CO2'
         }
         
-      }] as any
+      }]as any
     });
     
     
@@ -171,7 +179,7 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       series: [{  
         name: 'Methane',
-        data: [0.8],
+        data: [0],
         dataLabels: {
 
           backgroundColor: {
@@ -195,13 +203,25 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateCarbonChart() {
-    // Update your carbon chart here with the new data
-  }
-
   updateMethaneChart() {
-    // Update your methane chart here with the new data
+    if (this.methaneChart && this.methaneChart.ref) {
+      this.methaneChart.ref.series[0].setData([this.methaneValue], true);
+      this.cdr.detectChanges();
+    } else {
+      console.error('Methane chart or its reference is undefined.');
+    }
   }
+  
+  
+  
+  updateCarbonChart() {
+    if (this.carbonChart && this.carbonChart.ref) {
+      this.carbonChart.ref.series[0].setData([this.carbonValue]);
+      this.carbonChart.ref.redraw();
+      this.cdr.detectChanges();
+    } else {
+      console.error('Carbon chart or its reference is undefined.');
+    }
+  }
+  
 }
-
-
