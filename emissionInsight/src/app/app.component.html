@@ -5,28 +5,66 @@
   <div class="timestamp" *ngIf="sensorData.getSensorData && sensorData.getSensorData.length > 0">
     {{ sensorData.getSensorData[0].timestamp }}
   </div>
-  <hr>
-  <div class="upper-data" *ngIf="sensorData.getSensorData && sensorData.getSensorData.length > 0">
-    <div class="sensor-data" *ngFor="let sensor of sensorData.getSensorData">
-      <div class="carbon-data" *ngIf="sensor.carbon_concentration">
-        CO2: {{ sensor.carbon_concentration | number: '1.0-2' }}
-       
-      </div>
-      <div class="carbon-plot" [chart]="carbonChart"></div>
-    </div>
-  </div>
-  <hr>
-  <div class="lower-data">
   
-    <div class="meth-data" *ngFor="let sensor of sensorData.getSensorData">
-      <div class="methane-data" *ngIf="sensor.methane_concentration">
-        Methane: {{ sensor.methane_concentration | number: '1.0-2' }}
+    
+    <hr>
+    <div class="upper-data" *ngIf="sensorData.getSensorData && sensorData.getSensorData.length > 0">
+      <div class="sensor-data" *ngFor="let sensor of sensorData.getSensorData">
+        <div class="carbon-data" *ngIf="sensor.carbon_concentration">
+          CO2: {{ sensor.carbon_concentration | number: '1.0-2' }}
+         
+        </div>
+        <div class="carbon-plot" [chart]="carbonChart"></div>
+        <div class="line-chart" [chart]="lineChart"></div>
        
+        <!-- Add this line where you want to display the refresh icon -->
+<i class="fas fa-sync-alt text-success custom-refresh-icon" (click)="clearLocalStorage()"></i>
+
+
       </div>
-      <div class="methane-plot" [chart]="methaneChart"></div>
     </div>
-  </div>
-</div>
-<router-outlet></router-outlet> 
+    <hr class="hr2">
+    <div class="lower-data">
+    
+      <div class="meth-data" *ngFor="let sensor of sensorData.getSensorData">
+        <div class="methane-data" *ngIf="sensor.methane_concentration">
+          Methane: {{ sensor.methane_concentration | number: '1.0-2' }}
+        
+        </div>
+        <div class="methane-plot" [chart]="methaneChart"></div>
 
+        <div class="stats">
+          
+          <table>
+            <p>Emission Stats: </p>
+            <tr>
+              <th></th>
+              <th>Methane</th>
+              <th>Carbon</th>
+            </tr>
+            <tr>
+              <td>Max</td>
+              <td>{{ maxMethane }}</td>
+              <td>{{ maxCarbon }}</td>
+            </tr>
+            <tr>
+              <td>Min</td>
+              <td>{{ minMethane }}</td>
+              <td>{{ minCarbon }}</td>
+            </tr>
+            <tr>
+              <td>Avg</td>
+              <td>{{ avgMethane.toFixed(2) }}</td>
+              <td>{{ avgCarbon.toFixed(2) }}</td>
+            </tr>
+          </table>
+          
+        </div>
 
+         </div>
+      </div>
+    </div>
+  
+ 
+
+<router-outlet></router-outlet>

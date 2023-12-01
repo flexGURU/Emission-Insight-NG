@@ -8,9 +8,13 @@ import {  HIGHCHARTS_MODULES } from 'angular-highcharts';
 import * as HighchartsMore from 'highcharts/highcharts-more.src';
 import * as HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
 import { HighchartsChartModule } from "highcharts-angular";
+import { MonitoringComponent } from './monitoring/monitoring.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MonitoringComponent,
+  
   ],
   imports: [
     BrowserModule,
