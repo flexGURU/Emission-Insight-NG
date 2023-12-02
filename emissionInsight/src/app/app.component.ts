@@ -35,7 +35,7 @@ export class AppComponent {
     this.setupGaugeCharts();
     this.loadSensorData(); // Load data from local storage on initialization
     this.updateData();
-    setInterval(() => this.reload(), 600000);
+    setInterval(() => this.reload(), 300000);
     this.cdr.detectChanges();
   }
 
@@ -255,8 +255,8 @@ export class AppComponent {
         style: {
           fontFamily: 'Arial, sans-serif'
         },
-        width: 500,
-        height: 330,
+        width: 700,
+        height: 370,
       },
       
       credits: {
