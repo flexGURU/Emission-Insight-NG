@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
-import { API, GraphQLResult } from '@aws-amplify/api';
+import {  GraphQLResult } from '@aws-amplify/api';  // Import generateClient and Amplify
 import config from './api/src/aws-exports';
 import { getSensorData } from './api/src/graphql/queries';
 import { GetSensorDataQuery } from './api/src/API';
+import { Amplify} from 'aws-amplify';
+import {  generateClient} from 'aws-amplify/api';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SensorDataService {
   constructor() {
-    API.configure(config);
+    Amplify.configure(config);  // Configure Amplify with your AWS configuration
   }
 
   async list(): Promise<GetSensorDataQuery> {
     try {
-      const response: GraphQLResult<GetSensorDataQuery> = (await API.graphql({
+      const client = generateClient();  // Create a client using generateClient()
+
+      const response: GraphQLResult<GetSensorDataQuery> = await client.graphql({
         query: getSensorData,
         variables: {
           // <your variables, optional>
         }
-      })) as GraphQLResult<GetSensorDataQuery>;
-  
+      });
+
       console.log('Response from API: ', response);
-  
+
       if (response.data) {
         return response.data;
       } else {

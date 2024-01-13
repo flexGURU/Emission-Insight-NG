@@ -110,7 +110,7 @@ export class AppComponent {
     },
       
       title: {
-        text: 'Carbon Concentration',
+        text: 'Carbon Concentration (ppm)',
         style: {
           fontSize: '24px',
           fontWeight: '100',
@@ -126,10 +126,10 @@ export class AppComponent {
         
   
 
-      },        
+      },          
       yAxis: {
         min: 0,
-        max: 1,  
+        max: 1000,  
         tickPosition: 'outside',
         lineColor: '#000000',
         lineWidth: 2,
@@ -185,7 +185,7 @@ export class AppComponent {
     },
       
       title: {
-        text: 'Methane Concentration',
+        text: 'Methane Concentration (ppm)',
         style: {
           fontSize: '24px',
           fontWeight: '100',
@@ -204,7 +204,7 @@ export class AppComponent {
       },        
       yAxis: {
         min: 0,
-        max: 1,  
+        max: 100,  
         tickPosition: 'outside',
         lineColor: '#000000',
         lineWidth: 2,
@@ -255,8 +255,8 @@ export class AppComponent {
         style: {
           fontFamily: 'Arial, sans-serif'
         },
-        width: 700,
-        height: 370,
+        width: 500,
+        height: 330,
       },
       
       credits: {
@@ -282,8 +282,8 @@ export class AppComponent {
         }
       },
       yAxis: {
-        min: 0,
-        max: 1,
+        min: 200,
+        max: 1500,
         color: '#1A1A1D',
         tickPosition: 'outside',
         lineColor: '#000000',
@@ -424,4 +424,3 @@ export class AppComponent {
     this.cdr.detectChanges();
   }
 }
-
